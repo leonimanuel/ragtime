@@ -10,9 +10,14 @@ import { coreQuestions } from '../api/chat/system-prompts';
 // Example questions and options - you can replace with your actual data
 const questions = coreQuestions;
 
+type Answer = {
+  question: string;
+  selectedAnswers: string[];
+}
+
 export default function Questionnaire() {
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
-  const [answers, setAnswers] = useState<Record<number, string[]>>({});
+  const [answers, setAnswers] = useState<Record<number, Answer>>({});
   const cardContentRef = useRef<HTMLDivElement>(null);
   
   const isLastQuestion = currentQuestionIndex === questions.length - 1;
@@ -20,8 +25,13 @@ export default function Questionnaire() {
   const handleValueChange = (questionIndex: number, value: string[]) => {
     setAnswers(prev => ({
       ...prev,
-      [questionIndex]: value
+      [questionIndex]: {
+        question: questions[questionIndex].question,
+        selectedAnswers: value
+      }
     }));
+
+    console.log(answers);
   };
 
   const scrollToBottom = () => {
@@ -42,14 +52,14 @@ export default function Questionnaire() {
 
   const handleNext = () => {
     // Only proceed if current question has at least one answer
-    if (answers[currentQuestionIndex]?.length > 0) {
+    if (answers[currentQuestionIndex]?.selectedAnswers.length > 0) {
       setCurrentQuestionIndex(prev => prev + 1);
     }
   };
 
   const handleSubmit = () => {
     // Only submit if current question has at least one answer
-    if (answers[currentQuestionIndex]?.length > 0) {
+    if (answers[currentQuestionIndex]?.selectedAnswers.length > 0) {
       console.log('All answers:', answers);
     }
   };
@@ -83,7 +93,7 @@ export default function Questionnaire() {
                 <ToggleGroup 
                   type="multiple" 
                   className="flex flex-wrap gap-2"
-                  value={answers[index] || []}
+                  value={answers[index]?.selectedAnswers || []}
                   onValueChange={(value) => handleValueChange(index, value)}
                 >
                   {question.answers.map((option) => (
@@ -106,14 +116,14 @@ export default function Questionnaire() {
               {isLastQuestion ? (
                 <Button 
                   onClick={handleSubmit} 
-                  disabled={!answers[currentQuestionIndex]?.length}
+                  disabled={!answers[currentQuestionIndex]?.selectedAnswers.length}
                 >
                   Submit
                 </Button>
               ) : (
                 <Button 
                   onClick={handleNext} 
-                  disabled={!answers[currentQuestionIndex]?.length}
+                  disabled={!answers[currentQuestionIndex]?.selectedAnswers.length}
                 >
                   Next
                 </Button>
