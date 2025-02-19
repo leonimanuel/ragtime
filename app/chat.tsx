@@ -34,7 +34,7 @@ export default function Chat(
             <div key={message.id} className="whitespace-pre-wrap">
               <div>
                 <div className="font-bold">{message.role}</div>                
-                <p>
+                <div className="prose dark:prose-invert max-w-none">
                   {message.content.length > 0 ? (
                     <MemoizedMarkdown content={message.content} id={message.id} />
                   ) : (
@@ -42,7 +42,7 @@ export default function Chat(
                       {'calling tool: ' + message?.toolInvocations?.[0].toolName}
                     </span>
                   )}
-                </p>
+                </div >
               </div>
 
               {/* <div>
