@@ -1,8 +1,11 @@
 'use client';
 
 import { useChat } from '@ai-sdk/react';
+import { useState } from 'react';
+import { systemPrompts } from './api/chat/system-prompts';
 
 export default function Chat() {
+  const [questions, setQuestions] = useState(systemPrompts.coreQuestions);
   const { messages, input, handleInputChange, handleSubmit } = useChat({
     maxSteps: 3
   });
