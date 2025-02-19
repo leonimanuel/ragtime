@@ -1,10 +1,12 @@
 'use client';
 
 import { useChat, useCompletion } from '@ai-sdk/react';
+import { Weather } from '@/components/weather';
 import { systemPrompts } from './api/chat/system-prompts';
 import { QuestionAnswers } from './types/QuestionAnswers';
 import { openai } from '@ai-sdk/openai';
 import { useEffect } from 'react';
+
 export default function Chat(
   { questionsAnswers }: { questionsAnswers: string }
 ) {
@@ -15,43 +17,69 @@ export default function Chat(
     // },
   });
 
-  useEffect(() => {
-    chat.append({
-      id: '1',
-      role: 'system',
-      content: questionsAnswers
-    });
-  }, []);
+  // useEffect(() => {
+  //   chat.append({
+  //     id: '1',
+  //     role: 'system',
+  //     content: questionsAnswers
+  //   });
+  // }, []);
 
+  const { messages, input, handleInputChange, handleSubmit } = chat;
   return (
     <>
       <div className="space-y-4">
-        {chat.messages.map(m => (
-          m.role != "system" ? (
-            <div key={m.id} className="whitespace-pre-wrap">
+        {messages.map(message => (
+          message.role != "system" ? (
+            <div key={message.id} className="whitespace-pre-wrap">
               <div>
-                <div className="font-bold">{m.role}</div>
+                <div className="font-bold">{message.role}</div>
                 <p>
-                  {m.content.length > 0 ? (
-                    m.content
+                  {message.content.length > 0 ? (
+                    message.content
                   ) : (
                     <span className="italic font-light">
-                      {'calling tool: ' + m?.toolInvocations?.[0].toolName}
+                      {'calling tool: ' + message?.toolInvocations?.[0].toolName}
                     </span>
                   )}
                 </p>
+              </div>
+
+              <div>
+                {message.toolInvocations?.map(toolInvocation => {
+                  const { toolName, toolCallId, state } = toolInvocation;
+
+                  if (state === 'result') {
+                    if (toolName === 'displayWeather') {
+                      const { result } = toolInvocation;
+                      return (
+                        <div key={toolCallId}>
+                          <Weather {...result} />
+                        </div>
+                      );
+                    }
+                  } else {
+                    return (
+                      <div key={toolCallId}>
+                        {toolName === 'displayWeather' ? (
+                          <div>Loading weather...</div>
+                        ) : null}
+                      </div>
+                    );
+                  }
+                })}
               </div>
             </div>
           ) : null
         ))}
       </div>
 
-      <form onSubmit={chat.handleSubmit}>
+      <form onSubmit={handleSubmit}>
         <input
           className="fixed bottom-0 w-full max-w-md p-2 mb-8 border border-gray-300 rounded shadow-xl"
-          value={chat.input}
+          value={input}
           placeholder="Say something..."
-          onChange={chat.handleInputChange}
+          onChange={handleInputChange}
         />
       </form>
     </>
