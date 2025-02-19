@@ -6,7 +6,7 @@ import { systemPrompts } from './api/chat/system-prompts';
 import { QuestionAnswers } from './types/QuestionAnswers';
 import { openai } from '@ai-sdk/openai';
 import { useEffect } from 'react';
-
+import { MemoizedMarkdown } from '@/components/memoized-markdown';
 export default function Chat(
   { questionsAnswers }: { questionsAnswers: string }
 ) {
@@ -33,19 +33,19 @@ export default function Chat(
           message.role != "system" ? (
             <div key={message.id} className="whitespace-pre-wrap">
               <div>
-                <div className="font-bold">{message.role}</div>
-                <p>
+                <div className="font-bold">{message.role}</div>                
+                <div className="prose dark:prose-invert max-w-none">
                   {message.content.length > 0 ? (
-                    message.content
+                    <MemoizedMarkdown content={message.content} id={message.id} />
                   ) : (
                     <span className="italic font-light">
                       {'calling tool: ' + message?.toolInvocations?.[0].toolName}
                     </span>
                   )}
-                </p>
+                </div >
               </div>
 
-              <div>
+              {/* <div>
                 {message.toolInvocations?.map(toolInvocation => {
                   const { toolName, toolCallId, state } = toolInvocation;
 
@@ -68,7 +68,7 @@ export default function Chat(
                     );
                   }
                 })}
-              </div>
+              </div> */}
             </div>
           ) : null
         ))}
