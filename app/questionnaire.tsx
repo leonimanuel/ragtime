@@ -5,33 +5,29 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { ToggleGroup, ToggleGroupItem } from "@/components/ui/toggle-group";
 import { cn } from "@/lib/utils";
-import { coreQuestions } from '../api/chat/system-prompts';
+import { coreQuestions } from './api/chat/system-prompts';
+import { QuestionAnswers } from './types/QuestionAnswers';
 
-// Example questions and options - you can replace with your actual data
 const questions = coreQuestions;
 
-type Answer = {
-  question: string;
-  selectedAnswers: string[];
-}
-
-export default function Questionnaire() {
+export default function Questionnaire(
+  { onSubmit }: { onSubmit: (answers: QuestionAnswers[]) => void }
+) {
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
-  const [answers, setAnswers] = useState<Record<number, Answer>>({});
+  const [answers, setAnswers] = useState<QuestionAnswers[]>([]);
   const cardContentRef = useRef<HTMLDivElement>(null);
   
   const isLastQuestion = currentQuestionIndex === questions.length - 1;
 
   const handleValueChange = (questionIndex: number, value: string[]) => {
-    setAnswers(prev => ({
-      ...prev,
-      [questionIndex]: {
+    setAnswers(prev => {
+      const newAnswers = [...prev];
+      newAnswers[questionIndex] = {
         question: questions[questionIndex].question,
         selectedAnswers: value
-      }
-    }));
-
-    console.log(answers);
+      };
+      return newAnswers;
+    });
   };
 
   const scrollToBottom = () => {
@@ -54,13 +50,6 @@ export default function Questionnaire() {
     // Only proceed if current question has at least one answer
     if (answers[currentQuestionIndex]?.selectedAnswers.length > 0) {
       setCurrentQuestionIndex(prev => prev + 1);
-    }
-  };
-
-  const handleSubmit = () => {
-    // Only submit if current question has at least one answer
-    if (answers[currentQuestionIndex]?.selectedAnswers.length > 0) {
-      console.log('All answers:', answers);
     }
   };
 
@@ -115,7 +104,7 @@ export default function Questionnaire() {
             <div className="flex justify-end">
               {isLastQuestion ? (
                 <Button 
-                  onClick={handleSubmit} 
+                  onClick={() => onSubmit(answers)} 
                   disabled={!answers[currentQuestionIndex]?.selectedAnswers.length}
                 >
                   Submit

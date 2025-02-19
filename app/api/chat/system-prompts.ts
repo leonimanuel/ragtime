@@ -41,35 +41,35 @@ export const coreQuestions = [
       "High-performance compute (e.g., video processing, simulations)"
     ] 
   },
-  { question: "What are your primary concerns for this system?", 
-    answers: [
-      "Scalability (handling increased traffic or users)",
-      "Performance (low latency, high-speed responses)",
-      "Cost efficiency (minimizing infrastructure expenses)",
-      "Security & compliance (data protection, regulations)",
-      "Developer experience (ease of building & maintaining)",
-      "Resilience & fault tolerance (handling failures gracefully)"        
-    ] 
-  },
-  { question: "Will this system need to support real-time interactions or event-driven behavior?", 
-    answers: [
-      "Yes, it needs live updates (e.g., chat, collaborative editing, dashboards)",
-      "No, it operates on request-response (e.g., REST API, batch processing)"
-    ]
-  },
-  { question: "What are the expected usage patterns and scale for this system?", 
-    answers: [
-      "Small-scale with low traffic (~hundreds of users)",
-      "Medium-scale with moderate traffic (~thousands of users)",
-      "Large-scale with high traffic (~millions of users)",
-      "Variable traffic with potential spikes (e.g., seasonal or event-driven)"
-    ] 
-  },
-  { question: "Does this system need to integrate with other platforms or services?", 
-    answers: [
-      "Yes, it needs to interact with third-party APIs",
-      "Yes, it will connect to an existing database or system",
-      "No, it's a self-contained application"
-    ] 
-  }
+  // { question: "What are your primary concerns for this system?", 
+  //   answers: [
+  //     "Scalability (handling increased traffic or users)",
+  //     "Performance (low latency, high-speed responses)",
+  //     "Cost efficiency (minimizing infrastructure expenses)",
+  //     "Security & compliance (data protection, regulations)",
+  //     "Developer experience (ease of building & maintaining)",
+  //     "Resilience & fault tolerance (handling failures gracefully)"        
+  //   ] 
+  // },
+  // { question: "Will this system need to support real-time interactions or event-driven behavior?", 
+  //   answers: [
+  //     "Yes, it needs live updates (e.g., chat, collaborative editing, dashboards)",
+  //     "No, it operates on request-response (e.g., REST API, batch processing)"
+  //   ]
+  // },
+  // { question: "What are the expected usage patterns and scale for this system?", 
+  //   answers: [
+  //     "Small-scale with low traffic (~hundreds of users)",
+  //     "Medium-scale with moderate traffic (~thousands of users)",
+  //     "Large-scale with high traffic (~millions of users)",
+  //     "Variable traffic with potential spikes (e.g., seasonal or event-driven)"
+  //   ] 
+  // },
+  // { question: "Does this system need to integrate with other platforms or services?", 
+  //   answers: [
+  //     "Yes, it needs to interact with third-party APIs",
+  //     "Yes, it will connect to an existing database or system",
+  //     "No, it's a self-contained application"
+  //   ] 
+  // }
 ]

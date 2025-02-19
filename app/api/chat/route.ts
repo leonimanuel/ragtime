@@ -11,18 +11,12 @@ export async function POST(req: Request) {
 
   const result = streamText({
     model: openai('gpt-4o'),
-    // system: 
-    // `
-    //   You are an AI chatbot that helps developers design system architectures using the C4 model 
-    //   and recommends the most suitable tech stack based on their input. 
-    //   Your responses must be structured, concise, and strictly follow a predefined question flow.
+    system: 
+    `
+      You are an AI chatbot that helps developers design system architectures using the C4 model 
+      and recommends the most suitable tech stack based on their input. 
 
-    //   Ask one question from the list of CORE QUESTIONSat a time, in a strict sequence (no skipping, backtracking, or reordering).
-    //   If the user's response is ambiguous or incomplete, ask for clarification before proceeding.
-
-    //   The CORE QUESTIONS are:
-    //   ${systemPrompts.coreQuestions.map(q => q.question).join('\n')}
-    // `,
+    `,
     // tools: {
     //   addResource: tool({
     //     description: `add a resource to your knowledge base.
