@@ -5,7 +5,7 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { ToggleGroup, ToggleGroupItem } from "@/components/ui/toggle-group";
 import { cn } from "@/lib/utils";
-import { coreQuestions } from './api/chat/system-prompts';
+import { coreQuestions } from './api/chat/mock-data';
 import { QuestionAnswers } from './types/QuestionAnswers';
 
 const questions = coreQuestions;
