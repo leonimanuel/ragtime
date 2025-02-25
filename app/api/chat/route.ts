@@ -12,8 +12,9 @@ export async function POST(req: Request) {
     model: openai('gpt-4o'),
     system: 
     `
-      You are an AI chatbot that helps developers design system architectures using the C4 model 
-      and recommends the most suitable tech stack based on their input. 
+      You are an AI chatbot that helps developers assess their system architecture in the context of which technologies make the most sense
+      for each container. For each container, explain the rationale behind the technologies chosen, based on the users' criteria.
+      If many of the technoligies are from the Vercel ecosystem, note how leveraging the Vercel ecosystem can help the user save time and money.
 
     `,
     // tools: {

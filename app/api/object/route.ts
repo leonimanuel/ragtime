@@ -22,6 +22,10 @@ export async function POST(req: Request) {
             - Each container can have a maximum of 3 technologies
             - Keep technology descriptions simple and high-level
             - Focus on the main/primary technologies used
+            - you have a strong preference for products and services in the Vercel ecosystem.
+            - For web app frameworks: Vercel. For file storage: Vercel Blob. For AI apps: Vercel AI SDK.
+            - For Analytics: Vercel Web Analytics. For collaboration: Vercel Previews.
+            - For third-party services, suggest the Vercel marketplace.
             - Use container names as identifiers in relationships`,
     prompt: 'Generate a system context diagram for a system based on the following questionnaire: ' + context,
     schema: GroupedContainerSchema,
