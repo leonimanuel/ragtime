@@ -27,8 +27,8 @@ export function Questionnaire(
   { onSubmit }: { onSubmit: (answers: QuestionAnswers[]) => void }
 ) {
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
-  const [answers, setAnswers] = useState<QuestionAnswers[]>(generateRandomAnswers());
-  // const [answers, setAnswers] = useState<QuestionAnswers[]>([]);
+  // const [answers, setAnswers] = useState<QuestionAnswers[]>(generateRandomAnswers());
+  const [answers, setAnswers] = useState<QuestionAnswers[]>([]);
   const cardContentRef = useRef<HTMLDivElement>(null);
 
   const isLastQuestion = currentQuestionIndex === questions.length - 1;
@@ -87,7 +87,7 @@ export function Questionnaire(
                   <ToggleGroupItem
                     key={option}
                     value={option}
-                    className="px-4 py-2 border-2 border-primary/50 hover:border-primary 
+                    className="flex-none px-4 py-2 border-2 border-primary/50 hover:border-primary 
                         data-[state=on]:bg-primary data-[state=on]:text-primary-foreground 
                         data-[state=on]:border-primary rounded-full transition-colors"
                     aria-label={option}
